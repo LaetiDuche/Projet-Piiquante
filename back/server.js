@@ -1,5 +1,6 @@
 const http = require('http');
 const app = require('./app');
+require('dotenv').config()
 
 const normalizePort = val => {
   const port = parseInt(val, 10);
@@ -13,7 +14,7 @@ const normalizePort = val => {
   return false;
 };
 
-const port = normalizePort(process.env.PORT || '3000');
+const port = normalizePort(process.env.PORT || '8080');
 app.set('port', port);
 
 const errorHandler = error => {
@@ -35,6 +36,7 @@ const errorHandler = error => {
       throw error;
   }
 };
+
 const server = http.createServer(app);
 
 server.on('error', errorHandler);

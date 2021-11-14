@@ -1,17 +1,21 @@
 const express = require("express");
-const mongoose = require('mongoose');
-const app = express();
 const path = require('path');
-/* require('dotenv').config(); */
+const mongoose = require('mongoose');
+
+const helmet = require('helmet');
 
 const saucesRoutes = require('./routes/sauces');
 const userRoutes = require('./routes/user');
+
+const app = express();
 
 mongoose.connect('mongodb+srv://LaetiD:ce9gsm15ukEJdZsB@cluster0.qqhao.mongodb.net/myFirstDatabase?retryWrites=true&w=majority ',
   { useNewUrlParser: true,
     useUnifiedTopology: true })
   .then(() => console.log('Connexion à MongoDB réussie !'))
   .catch(() => console.log('Connexion à MongoDB échouée !'));
+
+  app.use(helmet());
 
   app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Origin', '*');
@@ -20,9 +24,9 @@ mongoose.connect('mongodb+srv://LaetiD:ce9gsm15ukEJdZsB@cluster0.qqhao.mongodb.n
     next();
   });
   
-  app.use(express.json());
-  
   app.use('/images', express.static(path.join(__dirname, 'images')));
+
+  app.use(express.json());
   
   app.use('/api/sauces', saucesRoutes);
   app.use('/api/auth', userRoutes);

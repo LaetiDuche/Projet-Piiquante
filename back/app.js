@@ -1,7 +1,7 @@
 const express = require("express");
 const path = require('path');
 const mongoose = require('mongoose');
-
+require('dotenv').config();
 const helmet = require('helmet');
 
 const saucesRoutes = require('./routes/sauces');
@@ -9,7 +9,7 @@ const userRoutes = require('./routes/user');
 
 const app = express();
 
-mongoose.connect('mongodb+srv://LaetiD:ce9gsm15ukEJdZsB@cluster0.qqhao.mongodb.net/myFirstDatabase?retryWrites=true&w=majority ',
+mongoose.connect(process.env.SECRET_DB,
   { useNewUrlParser: true,
     useUnifiedTopology: true })
   .then(() => console.log('Connexion à MongoDB réussie !'))

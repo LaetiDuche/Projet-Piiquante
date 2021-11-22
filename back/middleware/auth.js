@@ -1,8 +1,6 @@
 const jwt = require('jsonwebtoken');
-require('dotenv').config();
+require('dotenv').config({path: './.env'});
 
-/* const cors = require('cors');
-app.use(cors()); */
 module.exports = (req, res, next) =>{
   try{
     const token = req.headers.authorization.split(' ')[1];

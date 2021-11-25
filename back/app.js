@@ -1,13 +1,14 @@
-const express = require("express");
+const express = require('express');
+const app = express();
 const path = require('path');
+
 const mongoose = require('mongoose');
 require('dotenv').config({path: './.env'});
-const helmet = require('helmet');
+/* const helmet = require('helmet'); */
+const cors = require('cors');
 
 const saucesRoutes = require('./routes/sauces');
 const userRoutes = require('./routes/user');
-
-const app = express();
 
 mongoose.connect(process.env.SECRET_DB,
   {
@@ -17,9 +18,7 @@ mongoose.connect(process.env.SECRET_DB,
   .then(() => console.log('Connexion à MongoDB réussie !'))
   .catch(() => console.log('Connexion à MongoDB échouée !'));
 
-app.use(helmet());
-
-app.use(express.urlencoded({ extended: true }));
+/* app.use(helmet()); */
 
 app.use((req, res, next) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
@@ -34,5 +33,5 @@ app.use(express.json());
 
 app.use('/api/sauces', saucesRoutes);
 app.use('/api/auth', userRoutes);
-
+app.use(cors());
 module.exports = app;

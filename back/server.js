@@ -1,8 +1,6 @@
 const http = require('http');
-/* require('dotenv').config({path: './.env'}); */
 const app = require('./app');
-/* const cors = require('cors');
-app.use(cors());  */
+
 const normalizePort = val => {
   const port = parseInt(val, 10);
 

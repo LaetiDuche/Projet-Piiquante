@@ -1,3 +1,5 @@
+//Création du model des sauces avec leurs caractéristiques lors de leur création
+
 const mongoose = require('mongoose');
 
 const sauceSchema = mongoose.Schema({

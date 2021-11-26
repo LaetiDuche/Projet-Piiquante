@@ -1,3 +1,5 @@
+//Création du model user avec leur caractéristique lors de sa connexion email unique + mot de passe
+
 const mongoose = require('mongoose');
 const uniqueValidator = require('mongoose-unique-validator');
 

@@ -1,6 +1,6 @@
 //Structure du CRUD 
 //Ajouter, modifier, voir une sauce, voir toutes les sauces, supprimer une sauce
-//Ajouter des like ou dislike
+//Ajout des like ou dislike
 
 const Sauce = require('../models/Sauce');
 const fs = require('fs');
@@ -8,9 +8,11 @@ const express = require('express');
 
 //Créer une sauce
 exports.createSauce = (req, res, next) => {
+
   //Création du corps de la sauce 
   const sauceObject = JSON.parse(req.body.sauce);
   delete sauceObject._id;
+
   //Récupération de l'image pour la mettre dans le dossier images et activation des boutons likes
   const sauce = new Sauce({
     ...sauceObject,
@@ -34,6 +36,7 @@ exports.modifySauce = (req, res, next) => {
       ...JSON.parse(req.body.sauce),
       imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
     } : { ...req.body };
+
     //Mise à jour de la sauce
   Sauce.updateOne({ _id: req.params.id }, { ...sauceObject, _id: req.params.id })
     .then(() => res.status(200).json({ message: 'Sauce modifiée !' }))
@@ -56,8 +59,10 @@ exports.getOneSauce = (req, res, next) => {
 
 //Supprimer une sauce
 exports.deleteSauce = (req, res, next) => {
+
   //Récupération d'une sauce sélectionnée
   Sauce.findOne({ _id: req.params.id })
+  
   //Suppression de la sauce par son id et suppression de son image dans le dossier images
     .then(sauce => {
       const filename = sauce.imageUrl.split('/images/')[1];

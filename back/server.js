@@ -1,3 +1,5 @@
+//Mise en place du server et de son port
+
 const http = require('http');
 const app = require('./app');
 
@@ -13,6 +15,7 @@ const normalizePort = val => {
   return false;
 };
 
+//Utiliser le port donné ou sinon le port 3000
 const port = normalizePort(process.env.PORT || '3000');
 app.set('port', port);
 
@@ -27,6 +30,8 @@ const errorHandler = error => {
       console.error(bind + ' requires elevated privileges.');
       process.exit(1);
       break;
+      
+      //Si le port est déjà utilisé par un autre server
     case 'EADDRINUSE':
       console.error(bind + ' is already in use.');
       process.exit(1);

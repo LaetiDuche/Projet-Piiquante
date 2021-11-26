@@ -4,7 +4,7 @@ const path = require('path');
 
 const mongoose = require('mongoose');
 require('dotenv').config({path: './.env'});
-/* const helmet = require('helmet'); */
+const helmet = require('helmet');
 const cors = require('cors');
 
 const saucesRoutes = require('./routes/sauces');
@@ -18,7 +18,7 @@ mongoose.connect(process.env.SECRET_DB,
   .then(() => console.log('Connexion à MongoDB réussie !'))
   .catch(() => console.log('Connexion à MongoDB échouée !'));
 
-/* app.use(helmet()); */
+app.use(helmet());
 
 app.use((req, res, next) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
